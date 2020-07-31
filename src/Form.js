@@ -8,19 +8,15 @@ class Form extends Component {
         this.state = {
             answer: '',
             options: []
-        }
-        this.checkAnswer = this.checkAnswer.bind(this);
-        this.handleChange = this.handleChange.bind(this);
+        };
     }
 
     handleChange(e) {
-        this.setState({answer: e.target.value});
-        console.log(e.target.value);
+        this.setState({ answer: e.target.value });
     }
 
     checkAnswer(e) {
         e.preventDefault();
-        console.log(this.state.answer);
         if(this.state.answer === this.props.answer) {
             alert("Right Answer!");
             this.props.newQuestion();
@@ -30,28 +26,33 @@ class Form extends Component {
         }
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.answer !== prevProps.answer)
+            this.setState({
+                options: Shuffle([...this.props.options, this.props.answer])
+            });
+    }
+
     render() {
-        let options = Shuffle([...this.props.options, this.props.answer]);
+        let { options } = this.state;
         return (
-            <form onSubmit={this.checkAnswer}>
+            <form onSubmit={e => this.checkAnswer(e)}>
                 <h2>Question {this.props.q_no}</h2>
                 <h3>To which Country does the flag belong to:</h3>
                 <img alt="flag" src={this.props.flag}></img><br />
                 <ol>
-                    {
-                        options.map((option, ind) => (
-                            <li key={ind}>
-                                <input 
-                                    type="radio"
-                                    id={option} 
-                                    name="counry" 
-                                    value={option} 
-                                    onClick={this.handleChange} 
-                                />
-                                <label htmlFor={option}>{option}</label>
-                            </li>
-                        ))
-                    }
+                    {options.map((option) => (
+                        <li key={option}>
+                            <input 
+                                type="radio"
+                                id={option} 
+                                name="country" 
+                                value={option} 
+                                onClick={e => this.handleChange(e)} 
+                            />
+                            <label htmlFor={option}>{option}</label>
+                        </li>
+                    ))}
                 </ol>
                 <input className="check-btn" type="submit" value="check" />
             </form>
