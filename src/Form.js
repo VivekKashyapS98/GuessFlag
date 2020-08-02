@@ -9,7 +9,8 @@ class Form extends Component {
       answer: "",
       options: [],
       submit: "check",
-      score: 0
+      score: 0,
+      comment: ""
     };
   }
 
@@ -20,12 +21,26 @@ class Form extends Component {
   checkAnswer(e) {
     e.preventDefault();
     if (this.state.answer === this.props.answer) {
-      alert("Right Answer!");
       this.setState({ score: this.state.score + 1 });
-      this.props.newQuestion();
+      if (this.state.submit === "check") {
+        this.setState({
+          comment: "Right Ans!",
+          submit: "Next ->"
+        });
+      } else {
+        this.props.newQuestion();
+        this.setState({ comment: "", submit: "check" });
+      }
     } else {
-      alert("Wrong Answer!");
-      this.props.newQuestion();
+      if (this.state.submit === "check") {
+        this.setState({
+          comment: `Wrong! Ans: ${this.props.answer}`,
+          submit: "Next ->"
+        });
+      } else {
+        this.props.newQuestion();
+        this.setState({ comment: "", submit: "check" });
+      }
     }
   }
 
@@ -58,11 +73,19 @@ class Form extends Component {
             </li>
           ))}
         </ol>
-        <br /><br />
+        <br />
+        <br />
         <h3>
           Score: {this.state.score}/{this.props.q_no}
         </h3>
-        <input className="check-btn" type="submit" value={this.state.submit} />
+        <div className="submit-flex">
+          <h4>{this.state.comment}</h4>
+          <input
+            className="check-btn"
+            type="submit"
+            value={this.state.submit}
+          />
+        </div>
       </form>
     );
   }

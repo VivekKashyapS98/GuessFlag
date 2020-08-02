@@ -4,7 +4,7 @@ header {
   align-items: center;
   height: inherit;
   background-color: #101269;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: "Times New Roman", Times, serif;
 }
 
 .nav-text {
@@ -20,9 +20,9 @@ header {
   margin: 2vh 8vh;
   padding: 2vh 4vh;
   text-align: center;
-  background-color: #D4D2D2;
+  background-color: #d4d2d2;
   border-radius: 2vh;
-  box-shadow: .5vh .5vh 0vh gray;
+  box-shadow: 0.5vh 0.5vh 0vh gray;
 }
 
 .check-btn {
@@ -55,4 +55,10 @@ li {
 img {
   max-height: 45vh;
   max-width: 50vh;
+}
+
+.submit-flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
