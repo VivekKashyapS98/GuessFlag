@@ -74,7 +74,6 @@ class Form extends Component {
           ))}
         </ol>
         <br />
-        <br />
         <h3>
           Score: {this.state.score}/{this.props.q_no}
         </h3>
